@@ -39,9 +39,30 @@ public:
 
     Vec3 &operator+=(const Vec3 &vec)
     {
-        v[0] = vec[0];
-        v[1] = vec[1];
-        v[2] = vec[2];
+        v[0] += vec[0];
+        v[1] += vec[1];
+        v[2] += vec[2];
+    }
+
+    Vec3 &operator-=(const Vec3 &vec)
+    {
+        v[0] -= vec[0];
+        v[1] -= vec[1];
+        v[2] -= vec[2];
+    }
+
+    Vec3 &operator*=(const Vec3 &vec)
+    {
+        v[0] *= vec[0];
+        v[1] *= vec[1];
+        v[2] *= vec[2];
+    }
+
+    Vec3 &operator/=(const Vec3 &vec)
+    {
+        v[0] /= vec[0];
+        v[1] /= vec[1];
+        v[2] /= vec[2];
     }
 };
 
