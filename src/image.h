@@ -57,7 +57,6 @@ public:
                 unsigned int index = (i + j * width) * 3;
                 Vec3 RGB(pixel[index], pixel[index + 1], pixel[index + 2]);
                 Vec3 G_RGB = gammaConver(RGB);
-                G_RGB = RGB;
 
                 const unsigned int R = static_cast<unsigned int>(255 * G_RGB[0]);
                 const unsigned int G = static_cast<unsigned int>(255 * G_RGB[1]);
