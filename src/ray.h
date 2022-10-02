@@ -6,13 +6,13 @@ struct Ray
 {
     Vec3 origin;
     Vec3 direction;
-    float tmin = 1e-3f;
-    float tmax = 1e5f;
+    float tmin = 0.001;
+    float tmax = 10000.0;
 
     Ray() {}
     Ray(const Vec3 &origin, const Vec3 &direction) : origin(origin), direction(direction){};
 
-    Vec3 posT(float t)
+    Vec3 posT(float t) const
     {
         return origin + t * direction;
     }

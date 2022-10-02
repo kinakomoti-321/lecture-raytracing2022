@@ -91,7 +91,7 @@ inline Vec3 operator-(const Vec3 &v1, const Vec3 &v2)
     Vec3 result;
     for (int i = 0; i < 3; i++)
     {
-        result[i] = v1[i] + v2[i];
+        result[i] = v1[i] - v2[i];
     }
 
     return result;
