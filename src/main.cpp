@@ -1,17 +1,24 @@
 #include <iostream>
 #include <image.h>
+#include "raytracing.h"
 #include "camera.h"
 #include "sphere.h"
+#include "scene.h"
+#include "material.h"
 
 int main()
 {
+
     Image img(512, 512);
     const unsigned int width = img.getWidth();
     const unsigned int height = img.getHeight();
 
-    PinholeCamera camera(Vec3(0, 0, 3), Vec3(0, 0, -1));
+    PinholeCamera camera(Vec3(0, 0, 5), Vec3(0, 0, -1));
 
-    Sphere sphere(Vec3(0), 1.0, 1, Vec3(1, 1, 1));
+    Scene scene;
+    scene.addSphere(Sphere(Vec3(1, 0, 1), 1.0, Material::Diffuse, Vec3(1)));
+    scene.addSphere(Sphere(Vec3(0, 0, 0), 1.0, Material::Diffuse, Vec3(1)));
+    scene.addSphere(Sphere(Vec3(1, 0, -1), 1.0, Material::Diffuse, Vec3(1)));
 
     for (int j = 0; j < height; j++)
     {
@@ -22,19 +29,11 @@ int main()
 
             IntersectionInfo info;
             const Ray ray = camera.getCameraRay(u, v);
-
-            if (sphere.intersect(ray, info))
-            {
-                img.setPixel(i, j, 0.5f * (info.normal + Vec3(1)));
-            }
-            else
-            {
-                img.setPixel(i, j, Vec3(0));
-            }
+            img.setPixel(i, j, raytrace(scene, ray));
         }
     }
 
-    img.writePPM("test");
+    img.writePPM("raytracing");
 
     return 0;
 }

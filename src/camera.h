@@ -36,8 +36,6 @@ public:
     // uv [-1,1]の値をもらった時、対応する画素のレイを生成する
     Ray getCameraRay(float u, float v) const
     {
-        u *= -1;
-        v *= -1;
         Vec3 I_ij = cam_pos + u * camera_r + v * camera_u; //画素の位置
         Vec3 p = cam_pos + camera_f;                       //ピンホールの位置
 

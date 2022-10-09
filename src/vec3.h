@@ -161,9 +161,34 @@ inline Vec3 cross(const Vec3 &v1, const Vec3 &v2)
     return ret;
 }
 
+std::ostream &operator<<(std::ostream &stream, const Vec3 &v)
+{
+    stream << "(" << v[0] << ", " << v[1] << ", " << v[2] << ")";
+    return stream;
+}
+
 //正規化　与えられたベクトルを単位ベクトル（大きさ１)にする
 inline Vec3 normalize(const Vec3 &v)
 {
     return v / norm(v);
 }
+
+inline Vec3 reflect(const Vec3 &v, const Vec3 &n)
+{
+    return -v + 2.0f * dot(v, n) * n;
+}
+
+inline bool refract(const Vec3 &v, const Vec3 &n, float n1, float n2, Vec3 &t)
+{
+    Vec3 th = -(n1 / n2) * (v - dot(v, n) * n);
+    float th_n = norm(th);
+
+    if (th_n * th_n > 1.0)
+        return false;
+
+    Vec3 tp = -std::sqrt(std::max(1.0 - th_n * th_n, 0.0)) * n;
+    t = th + tp;
+    return true;
+}
+
 #endif
