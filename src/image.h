@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm>
 #include "./vec3.h"
 
 class Image
@@ -57,11 +58,10 @@ public:
                 unsigned int index = (i + j * width) * 3;
                 Vec3 RGB(pixel[index], pixel[index + 1], pixel[index + 2]);
                 Vec3 G_RGB = gammaConver(RGB);
-                G_RGB = RGB;
 
-                const unsigned int R = static_cast<unsigned int>(255 * G_RGB[0]);
-                const unsigned int G = static_cast<unsigned int>(255 * G_RGB[1]);
-                const unsigned int B = static_cast<unsigned int>(255 * G_RGB[2]);
+                const unsigned int R = static_cast<unsigned int>(std::clamp(255.0f * G_RGB[0], 0.0f, 255.0f));
+                const unsigned int G = static_cast<unsigned int>(std::clamp(255.0f * G_RGB[1], 0.0f, 255.0f));
+                const unsigned int B = static_cast<unsigned int>(std::clamp(255.0f * G_RGB[2], 0.0f, 255.0f));
 
                 file << R << " " << G << " " << B << std::endl;
             }
